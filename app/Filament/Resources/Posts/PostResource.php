@@ -33,10 +33,15 @@ class PostResource extends Resource
         return $schema
             ->components([
                 TextInput::make('title')
-                    ->required(),
+                    ->required()
+                    ->minLength(3)
+                    ->maxLength(255)
+                    ->unique(ignoreRecord: true),
                 Textarea::make('body')
                     ->required()
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->minLength(10)
+                    ->maxLength(65535),
                 Toggle::make('is_published')
                     ->required(),
             ]);
