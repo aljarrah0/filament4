@@ -42,7 +42,7 @@ class PostResource extends Resource
             ]);
     }
 
-    public static function infolist(Schema $schema): Schema
+    public static function infoList(Schema $schema): Schema
     {
         return $schema
             ->components([
