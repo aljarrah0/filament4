@@ -16,8 +16,14 @@ class UsersTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')->label('Name')->sortable(),
-                TextColumn::make('email')->label('Email')->sortable(),
+                TextColumn::make('name')
+                    ->label('Name')
+                    ->sortable()
+                    ->searchable(isIndividual: true, isGlobal: false),
+                TextColumn::make('email')
+                    ->label('Email')
+                    ->sortable()
+                    ->searchable(isIndividual: true, isGlobal: false),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
