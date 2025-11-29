@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\Products\Schemas;
 
 use Filament\Schemas\Schema;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 
 class ProductsForm
 {
@@ -10,7 +12,9 @@ class ProductsForm
     {
         return $schema
             ->components([
-                //
+                TextInput::make('name')->label('Product Name')->required(),
+                TextInput::make('price')->label('Price')->required()->rule('numeric'),
+                Textarea::make('description')->label('Description')->nullable()->columnSpanFull(),
             ]);
     }
 }
