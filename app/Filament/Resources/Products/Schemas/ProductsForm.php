@@ -13,7 +13,7 @@ class ProductsForm
         return $schema
             ->components([
                 TextInput::make('name')->label('Product Name')->required(),
-                TextInput::make('price')->label('Price')->required()->rule('numeric'),
+                TextInput::make('price')->label('Price')->required()->rule('numeric')->prefix('EGP '),
                 Textarea::make('description')->label('Description')->nullable()->columnSpanFull(),
             ]);
     }
