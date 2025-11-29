@@ -17,6 +17,7 @@ class UsersTable
                 TextColumn::make('name')->label('Name'),
                 TextColumn::make('email')->label('Email'),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
