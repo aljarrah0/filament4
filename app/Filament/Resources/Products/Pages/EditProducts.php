@@ -20,4 +20,21 @@ class EditProducts extends EditRecord
             RestoreAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        if (isset($data['price'])) {
+            $data['price'] = $data['price'] / 100;
+        }
+        return $data;
+    }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        // Multiply the price by 100 before saving to the database
+        if (isset($data['price'])) {
+            $data['price'] = $data['price'] * 100;
+        }
+        return $data;
+    }
 }
