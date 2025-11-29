@@ -7,6 +7,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Actions\ForceDeleteBulkAction;
 
@@ -16,7 +17,8 @@ class ProductsTable
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')->label('Product Name'),
+                TextColumn::make('price')->label('Price')->money('USD', 100),
             ])
             ->filters([
                 TrashedFilter::make(),
