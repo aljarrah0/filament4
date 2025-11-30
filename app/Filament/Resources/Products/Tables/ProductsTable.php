@@ -3,11 +3,13 @@
 namespace App\Filament\Resources\Products\Tables;
 
 use Filament\Tables\Table;
+use App\Enum\ProductStatusEnum;
 use Filament\Actions\EditAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Actions\ForceDeleteBulkAction;
 
@@ -29,6 +31,8 @@ class ProductsTable
             ])
             ->filters([
                 TrashedFilter::make(),
+                SelectFilter::make('status')
+                    ->options(ProductStatusEnum::class),
             ])
             ->recordActions([
                 EditAction::make(),
