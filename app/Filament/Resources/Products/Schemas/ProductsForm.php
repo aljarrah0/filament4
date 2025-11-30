@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Products\Schemas;
 
 use Filament\Schemas\Schema;
 use App\Enum\ProductStatusEnum;
+use App\Filament\Tables\TagsTable;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use App\Filament\Tables\CategoriesTable;
@@ -33,9 +34,10 @@ class ProductsForm
                     ->relationship('category', 'name')
                     ->tableConfiguration(CategoriesTable::class)
                     ->nullable(),
-                Select::make('tags')
+                ModalTableSelect::make('tags')
                     ->label('Tags')
                     ->relationship('tags', 'name')
+                    ->tableConfiguration(TagsTable::class)
                     ->multiple()
                     ->nullable(),
                 Textarea::make('description')
