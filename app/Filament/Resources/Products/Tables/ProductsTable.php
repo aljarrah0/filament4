@@ -19,6 +19,7 @@ class ProductsTable
             ->columns([
                 TextColumn::make('name')->label('Product Name'),
                 TextColumn::make('price')->label('Price')->money('EGP', 100),
+                TextColumn::make('status')->label('Status'),
             ])
             ->filters([
                 TrashedFilter::make(),
