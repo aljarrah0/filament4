@@ -26,6 +26,10 @@ class ProductsForm
                     ->label('Status')
                     ->required()
                     ->options(ProductStatusEnum::class),
+                Select::make('category_id')
+                    ->label('Category')
+                    ->relationship('category', 'name')
+                    ->nullable(),
                 Textarea::make('description')
                     ->label('Description')
                     ->nullable()
