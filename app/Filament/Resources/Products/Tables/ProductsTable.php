@@ -24,7 +24,8 @@ class ProductsTable
                     ->money('EGP', 100),
                 TextColumn::make('status')
                     ->label('Status'),
-                TextColumn::make('category.name')
+                TextColumn::make('category.name'),
+                TextColumn::make('tags.name'),
             ])
             ->filters([
                 TrashedFilter::make(),

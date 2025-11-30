@@ -33,6 +33,11 @@ class ProductsForm
                     ->relationship('category', 'name')
                     ->tableConfiguration(CategoriesTable::class)
                     ->nullable(),
+                Select::make('tags')
+                    ->label('Tags')
+                    ->relationship('tags', 'name')
+                    ->multiple()
+                    ->nullable(),
                 Textarea::make('description')
                     ->label('Description')
                     ->nullable()
