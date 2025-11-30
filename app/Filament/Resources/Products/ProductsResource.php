@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\Products\Pages\EditProducts;
 use App\Filament\Resources\Products\Pages\ListProducts;
 use App\Filament\Resources\Products\Pages\CreateProducts;
+use App\Filament\Resources\Products\RelationManagers\TagsRelationManager;
 use App\Filament\Resources\Products\Schemas\ProductsForm;
 use App\Filament\Resources\Products\Tables\ProductsTable;
 
@@ -35,7 +36,7 @@ class ProductsResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TagsRelationManager::class,
         ];
     }
 
