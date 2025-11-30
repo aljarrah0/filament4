@@ -43,12 +43,18 @@ class ProductsTable
                 Filter::make('created_at')
                     ->schema([
                         DatePicker::make('created_from'),
-                        DatePicker::make('created_until')
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query->when($data['created_from'], function (Builder $query, $created_from): Builder {
                             return $query->where('created_at', '>=', $created_from);
-                        })->when($data['created_until'], function (Builder $query, $created_until): Builder {
+                        });
+                    }),
+                Filter::make('created_until')
+                    ->schema([
+                        DatePicker::make('created_until')
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query->when($data['created_until'], function (Builder $query, $created_until): Builder {
                             return $query->where('created_at', '<=', $created_until);
                         });
                     }),
