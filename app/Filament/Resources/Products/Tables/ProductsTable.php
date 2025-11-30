@@ -33,6 +33,9 @@ class ProductsTable
                 TrashedFilter::make(),
                 SelectFilter::make('status')
                     ->options(ProductStatusEnum::class),
+                SelectFilter::make('category')
+                    ->label('Category')
+                    ->relationship('category', 'name'),
             ])
             ->recordActions([
                 EditAction::make(),
