@@ -24,6 +24,7 @@ class ProductsTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->url(fn(Product $record): string => ProductsResource::getUrl('edit', ['record' => $record]))
                     ->label('Product Name'),
                 TextColumn::make('price')
                     ->label('Price')
