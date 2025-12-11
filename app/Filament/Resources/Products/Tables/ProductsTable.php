@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Products\Tables;
 
+use App\Models\Product;
 use Filament\Tables\Table;
 use App\Enum\ProductStatusEnum;
 use Filament\Actions\EditAction;
@@ -16,6 +17,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Actions\ForceDeleteBulkAction;
+use App\Filament\Resources\Products\ProductsResource;
 
 class ProductsTable
 {
@@ -33,6 +35,11 @@ class ProductsTable
                     ->label('Status'),
                 TextColumn::make('category.name'),
                 TextColumn::make('tags.name')->badge(),
+                TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->since()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 TrashedFilter::make(),
