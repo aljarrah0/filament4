@@ -13,6 +13,7 @@ use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Forms\Components\DatePicker;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Filters\TrashedFilter;
@@ -33,6 +34,10 @@ class ProductsTable
                     ->money('EGP', 100),
                 TextColumn::make('status')->badge()
                     ->label('Status'),
+                ToggleColumn::make('is_active')
+                    ->label('Active')
+                    ->onIcon('heroicon-o-check-circle')
+                    ->offIcon('heroicon-o-x-circle'),
                 TextColumn::make('category.name'),
                 TextColumn::make('tags.name')->badge(),
                 TextColumn::make('created_at')
