@@ -28,9 +28,11 @@ class ProductsTable
             ->columns([
                 TextColumn::make('name')
                     ->url(fn(Product $record): string => ProductsResource::getUrl('edit', ['record' => $record]))
-                    ->label('Product Name'),
+                    ->label('Product Name')
+                    ->alignRight(),
                 TextColumn::make('price')
                     ->label('Price')
+                    ->alignLeft()
                     ->money('EGP', 100),
                 TextColumn::make('status')->badge()
                     ->label('Status'),
