@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\ProductStatusEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,6 +17,10 @@ class Product extends Model
         'price',
         'status',
         'category_id',
+    ];
+
+    protected $casts = [
+        'status' => ProductStatusEnum::class,
     ];
 
     public function category(): BelongsTo

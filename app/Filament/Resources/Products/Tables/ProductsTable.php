@@ -28,10 +28,10 @@ class ProductsTable
                 TextColumn::make('price')
                     ->label('Price')
                     ->money('EGP', 100),
-                TextColumn::make('status')
+                TextColumn::make('status')->badge()
                     ->label('Status'),
                 TextColumn::make('category.name'),
-                TextColumn::make('tags.name'),
+                TextColumn::make('tags.name')->badge(),
             ])
             ->filters([
                 TrashedFilter::make(),
