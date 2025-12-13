@@ -7,7 +7,7 @@ services:
                 WWWGROUP: '${WWWGROUP}'
                 MYSQL_CLIENT: mariadb-client
 
-        image: '${APP_NAME}-sail-8.4/app'
+        image: 'sail-8.4/app'
         container_name: '${APP_NAME}-laravel'
         extra_hosts:
             - 'host.docker.internal:host-gateway'
@@ -72,3 +72,4 @@ networks:
 volumes:
     sail-mariadb:
         driver: local
+        name: '${APP_NAME}-sail-mariadb'
