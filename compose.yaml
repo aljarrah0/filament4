@@ -6,7 +6,6 @@ services:
             args:
                 WWWGROUP: '${WWWGROUP}'
                 MYSQL_CLIENT: mariadb-client
-
         image: 'sail-8.4/app'
         container_name: '${APP_NAME}-laravel'
         extra_hosts:

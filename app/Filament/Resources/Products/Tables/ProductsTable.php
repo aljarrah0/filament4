@@ -13,12 +13,14 @@ use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Forms\Components\DatePicker;
+use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Actions\ForceDeleteBulkAction;
 use App\Filament\Resources\Products\ProductsResource;
+use Filament\Tables\Columns\TextInputColumn;
 
 class ProductsTable
 {
@@ -26,15 +28,18 @@ class ProductsTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->url(fn(Product $record): string => ProductsResource::getUrl('edit', ['record' => $record]))
+                TextInputColumn::make('name')
+                    // ->url(fn(Product $record): string => ProductsResource::getUrl('edit', ['record' => $record]))
                     ->label('Product Name')
-                    ->alignRight(),
+                    ->alignRight()
+                    ->rules(['required', 'string', 'min:3', 'max:255']),
                 TextColumn::make('price')
                     ->label('Price')
                     ->alignLeft()
                     ->money('EGP', 100),
-                TextColumn::make('status')->badge()
+                SelectColumn::make('status')
+                    // ->badge()
+                    ->options(ProductStatusEnum::class)
                     ->label('Status'),
                 ToggleColumn::make('is_active')
                     ->label('Active')
