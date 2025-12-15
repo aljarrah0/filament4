@@ -77,22 +77,21 @@ class OrdersTable
                     BulkAction::make('Mark as Complete')
                         ->icon(Heroicon::OutlinedCheckBadge)
                         ->requiresConfirmation()
-                        ->action(function (Collection $records) {
-                            foreach ($records as $record) {
+                        ->action(fn(Collection $records) => $records
+                            ->each(function ($record) {
                                 $record->is_complete = true;
                                 $record->save();
-                            }
-                        })
+
+                            }))
                         ->deselectRecordsAfterCompletion(),
-                        BulkAction::make('Mark as Not Complete')
+                    BulkAction::make('Mark as Not Complete')
                         ->icon(Heroicon::OutlinedCheckBadge)
                         ->requiresConfirmation()
-                        ->action(function (Collection $records) {
-                            foreach ($records as $record) {
+                        ->action(fn(Collection $records) => $records
+                            ->each(function ($record) {
                                 $record->is_complete = false;
                                 $record->save();
-                            }
-                        })
+                            }))
                         ->deselectRecordsAfterCompletion(),
                 ]),
             ]);
