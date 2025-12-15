@@ -35,6 +35,7 @@ class OrdersTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultGroup('product.name')
             ->filters([
                 //
             ])
