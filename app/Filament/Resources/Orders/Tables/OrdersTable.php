@@ -2,12 +2,15 @@
 
 namespace App\Filament\Resources\Orders\Tables;
 
+use App\Models\Order;
+use Filament\Tables\Table;
+use Filament\Actions\Action;
+use Filament\Actions\EditAction;
+use Filament\Support\Icons\Heroicon;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+use Filament\Tables\Columns\Summarizers\Sum;
 
 class OrdersTable
 {
@@ -43,6 +46,14 @@ class OrdersTable
             ])
             ->recordActions([
                 EditAction::make(),
+                Action::make('Mark as Complete')
+                    ->requiresConfirmation()
+                    ->icon(Heroicon::OutlinedCheckBadge)
+                    ->hidden(fn(Order $record) => $record->is_complete)
+                    ->action(function ($record) {
+                        $record->is_complete = true;
+                        $record->save();
+                    })
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
