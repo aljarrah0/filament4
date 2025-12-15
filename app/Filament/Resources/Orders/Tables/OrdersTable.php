@@ -84,6 +84,16 @@ class OrdersTable
                             }
                         })
                         ->deselectRecordsAfterCompletion(),
+                        BulkAction::make('Mark as Not Complete')
+                        ->icon(Heroicon::OutlinedCheckBadge)
+                        ->requiresConfirmation()
+                        ->action(function (Collection $records) {
+                            foreach ($records as $record) {
+                                $record->is_complete = false;
+                                $record->save();
+                            }
+                        })
+                        ->deselectRecordsAfterCompletion(),
                 ]),
             ]);
     }
