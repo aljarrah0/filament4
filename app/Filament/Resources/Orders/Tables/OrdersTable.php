@@ -6,6 +6,7 @@ use App\Models\Order;
 use Filament\Tables\Table;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
+use Filament\Actions\ActionGroup;
 use Filament\Support\Icons\Heroicon;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -45,15 +46,17 @@ class OrdersTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
-                Action::make('Mark as Complete')
-                    ->requiresConfirmation()
-                    ->icon(Heroicon::OutlinedCheckBadge)
-                    ->hidden(fn(Order $record) => $record->is_complete)
-                    ->action(function ($record) {
-                        $record->is_complete = true;
-                        $record->save();
-                    })
+                ActionGroup::make([
+                    EditAction::make(),
+                    Action::make('Mark as Complete')
+                        ->requiresConfirmation()
+                        ->icon(Heroicon::OutlinedCheckBadge)
+                        ->hidden(fn(Order $record) => $record->is_complete)
+                        ->action(function ($record) {
+                            $record->is_complete = true;
+                            $record->save();
+                        })
+                ])
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
