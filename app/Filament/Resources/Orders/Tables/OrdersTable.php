@@ -14,10 +14,10 @@ class OrdersTable
     {
         return $table
             ->columns([
-                TextColumn::make('user_id')
+                TextColumn::make('user.name')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('product_id')
+                TextColumn::make('product.name')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('quantity')
