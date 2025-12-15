@@ -9,6 +9,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ActionGroup;
 use Filament\Support\Icons\Heroicon;
 use Filament\Actions\BulkActionGroup;
+use Filament\Forms\Components\Toggle;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\Summarizers\Sum;
@@ -48,13 +49,23 @@ class OrdersTable
             ->recordActions([
                 ActionGroup::make([
                     EditAction::make(),
-                    Action::make('Mark as Complete')
-                        ->requiresConfirmation()
+                    // Action::make('Mark as Complete')
+                    //     ->requiresConfirmation()
+                    //     ->icon(Heroicon::OutlinedCheckBadge)
+                    //     ->hidden(fn(Order $record) => $record->is_complete)
+                    //     ->action(function ($record) {
+                    //         $record->is_complete = true;
+                    //         $record->save();
+                    //     }),
+                    Action::make('Change is Completed')
                         ->icon(Heroicon::OutlinedCheckBadge)
-                        ->hidden(fn(Order $record) => $record->is_complete)
-                        ->action(function ($record) {
-                            $record->is_complete = true;
-                            $record->save();
+                        ->fillForm(fn(Order $order) => ['is_completed' => $order->is_complete])
+                        ->schema([
+                            Toggle::make('is_completed')->label('Is Completed'),
+                        ])
+                        ->action(function (array $data, Order $order) {
+                            $order->is_complete = $data['is_completed'];
+                            $order->save();
                         })
                 ])
             ])
