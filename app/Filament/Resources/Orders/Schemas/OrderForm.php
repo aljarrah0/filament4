@@ -2,8 +2,11 @@
 
 namespace App\Filament\Resources\Orders\Schemas;
 
-use Filament\Forms\Components\TextInput;
+use App\Models\User;
+use App\Models\Product;
 use Filament\Schemas\Schema;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 
 class OrderForm
 {
@@ -11,12 +14,14 @@ class OrderForm
     {
         return $schema
             ->components([
-                TextInput::make('user_id')
+                Select::make('user_id')
                     ->required()
-                    ->numeric(),
-                TextInput::make('product_id')
+                    ->options(User::all()->pluck('name', 'id'))
+                    ->searchable(),
+                Select::make('product_id')
                     ->required()
-                    ->numeric(),
+                    ->options(Product::all()->pluck('name', 'id'))
+                    ->searchable(),
                 TextInput::make('quantity')
                     ->required()
                     ->numeric(),
