@@ -2,17 +2,16 @@
 
 namespace App\Filament\Resources\Orders\Tables;
 
-use App\Models\Order;
 use Filament\Tables\Table;
-use Filament\Actions\Action;
 use Filament\Actions\BulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Support\Icons\Heroicon;
 use Filament\Actions\BulkActionGroup;
-use Filament\Forms\Components\Toggle;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Notifications\Notification;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -35,6 +34,20 @@ class OrdersTable
                     ->money('USD', 100)
                     ->summarize(Sum::make()->money('USD', 100))
                     ->sortable(),
+                ToggleColumn::make('is_complete')
+                    ->toggleable()
+                    ->afterStateUpdated(function ($record, $state) {
+                        if (method_exists($record, 'save')) {
+                            $record->is_complete = $state;
+                            $record->save();
+                        }
+                        Notification::make()
+                            ->title('Order status updated!')
+                            ->success()
+                            ->body('The order completion status has been updated successfully.')
+                            ->send();
+                    })
+                    ->label('Is Completed'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -49,28 +62,8 @@ class OrdersTable
                 //
             ])
             ->recordActions([
-                ActionGroup::make([
-                    EditAction::make(),
-                    DeleteAction::make(),
-                    // Action::make('Mark as Complete')
-                    //     ->requiresConfirmation()
-                    //     ->icon(Heroicon::OutlinedCheckBadge)
-                    //     ->hidden(fn(Order $record) => $record->is_complete)
-                    //     ->action(function ($record) {
-                    //         $record->is_complete = true;
-                    //         $record->save();
-                    //     }),
-                    Action::make('Change is Completed')
-                        ->icon(Heroicon::OutlinedCheckBadge)
-                        ->fillForm(fn(Order $order) => ['is_completed' => $order->is_complete])
-                        ->schema([
-                            Toggle::make('is_completed')->label('Is Completed'),
-                        ])
-                        ->action(function (array $data, Order $order) {
-                            $order->is_complete = $data['is_completed'];
-                            $order->save();
-                        })
-                ])
+                EditAction::make(),
+                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
