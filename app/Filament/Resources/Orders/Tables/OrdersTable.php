@@ -51,6 +51,7 @@ class OrdersTable
             ->recordActions([
                 ActionGroup::make([
                     EditAction::make(),
+                    DeleteAction::make(),
                     // Action::make('Mark as Complete')
                     //     ->requiresConfirmation()
                     //     ->icon(Heroicon::OutlinedCheckBadge)
