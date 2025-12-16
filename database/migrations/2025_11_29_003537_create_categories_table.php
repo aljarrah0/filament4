@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->string('description')->nullable();
-            $table->string('code')->nullable();
+            $table->string('color')->nullable();
             $table->timestamps();
         });
     }
